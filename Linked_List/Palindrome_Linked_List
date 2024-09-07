@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        // Function to check if a linked list is a palindrome
+
+    // Step 1: Store the values of the nodes in an array
+    vector<int> values;
+    ListNode* current = head;
+    while (current != nullptr) {
+        values.push_back(current->val);
+        current = current->next;
+    }
+
+    // Step 2: Use two pointers to check if the array is a palindrome
+    int start = 0;
+    int end = values.size() - 1;
+    while (start < end) {
+        if (values[start] != values[end]) {
+            return false;  // Not a palindrome
+        }
+        start++;
+        end--;
+    }
+
+    return true;  // It's a palindrome
+
+    }
+};
