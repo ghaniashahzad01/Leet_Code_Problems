@@ -1,0 +1,45 @@
+ ListNode* reverseList(ListNode* head) {
+    ListNode* prev = NULL;
+    ListNode* current = head;
+    while (current != NULL) {
+        ListNode* nextNode = current->next;
+        current->next = prev;
+        prev = current;
+        current = nextNode;
+    }
+    return prev;
+}
+
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if (!head || !head->next) return;
+
+    ListNode* slow = head;
+    ListNode* fast = head;
+
+    // Find middle of the list
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    // Reverse the second half
+    ListNode* secondHalf = reverseList(slow->next);
+    slow->next = NULL;  // Cut the list
+
+    // Merge two halves
+    ListNode* firstHalf = head;
+    while (secondHalf) {
+        ListNode* temp1 = firstHalf->next;
+        ListNode* temp2 = secondHalf->next;
+
+        firstHalf->next = secondHalf;
+        secondHalf->next = temp1;
+
+        firstHalf = temp1;
+        secondHalf = temp2;
+    }
+    
+}
+};
