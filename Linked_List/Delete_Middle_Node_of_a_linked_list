@@ -1,6 +1,17 @@
-// Function to delete the middle node
-ListNode* deleteMiddle(ListNode* head) {
-    // Edge case: If there's only one node, return nullptr
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        // Edge case: If there's only one node, return nullptr
     if (!head || !head->next) return nullptr;
     
     // Initialize slow and fast pointers
@@ -21,4 +32,5 @@ ListNode* deleteMiddle(ListNode* head) {
     }
 
     return head;
-}
+    }
+};
