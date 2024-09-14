@@ -1,41 +1,31 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
-    ListNode* reverseBetween(ListNode* head, int left, int right) {
-        if (head == NULL || left == right) {
-        return head;
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr;  // Initialize prev as null
+        ListNode* current = head;  // Start with the head of the list
+        
+        while (current != nullptr) {
+            ListNode* nextNode = current->next;  // Store the next node
+            
+            // Reverse the current node's pointer
+            current->next = prev;
+            
+            // Move prev and current one step forward
+            prev = current;
+            current = nextNode;
+        }
+        
+        // Return prev, which is now the new head of the reversed list
+        return prev;
     }
-
-    // Create a dummy node to simplify edge cases
-    ListNode* dummy = new ListNode(0);
-    dummy->next = head;
-    ListNode* leftPrev = dummy;
-
-    // Move leftPrev to the node just before the left position
-    for (int i = 1; i < left; ++i) {
-        leftPrev = leftPrev->next;
-    }
-
-    // Reverse the segment
-    ListNode* cur = leftPrev->next;
-    ListNode* prev = NULL;
-    ListNode* next = NULL;
-
-    for (int i = left; i <= right; ++i) {
-        next = cur->next;
-        cur->next = prev;
-        prev = cur;
-        cur = next;
-    }
-
-    // Connect the reversed segment with the rest of the list
-    leftPrev->next->next = cur;
-    leftPrev->next = prev;
-
-    // The new head of the list
-    ListNode* newHead = dummy->next;
-    delete dummy; // Free the dummy node
-    
-    return newHead;
-}
-    
 };
