@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<string> buildArray(vector<int>& target, int n) {
+        vector<string> result;
+    int targetIndex = 0;  // Pointer to track the current target number
+    
+    for (int i = 1; i <= n; i++) {
+        // Push the current number
+        result.push_back("Push");
+        
+        // Check if it matches the current target number
+        if (i == target[targetIndex]) {
+            targetIndex++;  // Move to the next target number
+            // If we've matched all the target numbers, we can stop
+            if (targetIndex == target.size()) break;
+        } else {
+            // If it doesn't match, we need to pop it
+            result.push_back("Pop");
+        }
+    }
+    
+    return result;
+    }
+};
