@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string simplifyPath(string path) {
+        
+         stack<string> st;
+    stringstream ss(path);
+    string token;
+    
+    // Split the path by '/'
+    while (getline(ss, token, '/')) {
+        if (token == "" || token == ".") {
+            // Skip empty and current directory (.)
+            continue;
+        } else if (token == "..") {
+            // Pop from stack for parent directory (..)
+            if (!st.empty()) {
+                st.pop();
+            }
+        } else {
+            // Push valid directory name
+            st.push(token);
+        }
+    }
+
+    // Build the canonical path
+    string result = "";
+    while (!st.empty()) {
+        result = "/" + st.top() + result;
+        st.pop();
+    }
+
+    // Handle root case (if the result is empty, return "/")
+    return result.empty() ? "/" : result;
+
+    }
+};
