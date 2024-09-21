@@ -1,0 +1,21 @@
+string makeGood(string s) {
+    stack<char> st;
+    
+    for (char c : s) {
+        // Check if stack is not empty and the top element is a bad pair with the current character
+        if (!st.empty() && abs(st.top() - c) == 32) {
+            st.pop(); // Remove the bad pair
+        } else {
+            st.push(c); // Push current character if no pair found
+        }
+    }
+    
+    // Reconstruct the string from the stack
+    string result = "";
+    while (!st.empty()) {
+        result = st.top() + result;
+        st.pop();
+    }
+    
+    return result;
+}
