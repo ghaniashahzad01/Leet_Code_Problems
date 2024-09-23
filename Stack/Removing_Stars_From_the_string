@@ -1,0 +1,23 @@
+class Solution {
+public:
+    // Function to remove stars from the string
+    string removeStars(string s) {
+        string ans = ""; // Initialize an empty string to store the result
+
+        // Loop through each character in the string 's'
+        for(char c : s) 
+        {
+            // If the character is a '*', we remove the previous character
+            if(c == '*'){
+                if(!ans.empty()){ // Check if the result string is not empty
+                    ans.pop_back(); // Remove the last character from 'ans'
+                }
+            }
+            // If it's not a '*', we add the character to the result string
+            else{
+                ans.push_back(c); // Append the current character to 'ans'
+            }
+        }
+        return ans; // Return the final result after processing all characters
+    }
+};
