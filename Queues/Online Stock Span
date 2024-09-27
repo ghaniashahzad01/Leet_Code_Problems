@@ -1,0 +1,50 @@
+#include <iostream>
+#include <stack>
+#include <vector>
+using namespace std;
+
+class StockSpanner {
+private:
+    stack<pair<int, int>> s; // Pair of (price, index)
+    int index;
+
+public:
+    StockSpanner() {
+        index = -1; // Initialize index to -1 to track days
+    }
+    
+    int next(int price) {
+        index++; // Increment the index for the current day
+        
+        // Pop elements from the stack as long as the price is greater or equal
+        while (!s.empty() && s.top().first <= price) {
+            s.pop();
+        }
+        
+        // Calculate the span
+        int span;
+        if (s.empty()) {
+            // If the stack is empty, the span is the entire range (index + 1)
+            span = index + 1;
+        } else {
+            // Otherwise, the span is the difference between the current index and the top of the stack
+            span = index - s.top().second;
+        }
+        
+        // Push the current price and its index onto the stack
+        s.push({price, index});
+        
+        return span;
+    }
+};
+
+int main() {
+    StockSpanner stockSpanner;
+    vector<int> prices = {100, 80, 60, 70, 60, 75, 85};
+    
+    for (int price : prices) {
+        cout << "Price: " << price << ", Span: " << stockSpanner.next(price) << endl;
+    }
+    
+    return 0;
+}
