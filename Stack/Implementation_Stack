@@ -1,0 +1,59 @@
+#include<iostream>
+using namespace std;
+
+class Stack{
+	private:
+		int *arr;
+		int size;
+		int top;
+		
+	public:
+		Stack(int s)
+		{
+			arr = new int[s];
+			size = s;
+			top = -1;
+		}
+		
+	   void push(int value)
+	   {
+	   	   if(top == size)
+	   	    {
+	   	        cout<<"Stack overflow"<<endl;
+				   return;	
+		    }
+	   	
+	   	     arr[size] = value;
+	   	     cout<<value<<endl;
+	   	     top++;
+	   }
+	   
+	   void pop()
+	   {
+	   	  if(top == -1)
+	   	  {
+	   	        cout<<"Stack underflow"<<endl;
+				   return;	
+		   }
+		   top--;
+	   }
+	   
+	  int peek()
+	  {
+	  	    if(top == -1)
+	  	    {
+	  	    	cout<<"Stack is Empty"<<endl;
+			}
+	     	return arr[top];
+	  }
+};
+
+int main()
+{
+	Stack s(3);
+	s.push(8);
+	s.push(89);
+	s.pop();
+	
+	return 0;
+}
