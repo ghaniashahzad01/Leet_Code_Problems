@@ -1,0 +1,92 @@
+#include<iostream>
+using namespace std;
+
+struct Node{
+	int data;
+	Node *next;
+	
+	Node(int value)
+	{
+		data = value;
+		next = nullptr;
+	}
+};
+
+class Queue{
+	private:
+		Node *front;
+		Node *rear;
+	public:
+		Queue()
+		{
+			front = rear = nullptr;
+		}
+		
+		bool isEmpty()
+		{
+			return front == nullptr;
+		}
+		void enqueue(int value)
+		{
+			Node *newNode = new Node(value);
+			
+			if(isEmpty())
+			{
+				front = rear = newNode;
+			}
+			else{
+				rear->next = newNode;
+				rear = newNode;
+			}
+			
+		}
+		
+		void dequeue()
+		{
+			if(isEmpty())
+			{
+				cout<<"Queue Underflow"<<endl;
+			}
+		     
+		    if(front == nullptr)
+		    {
+		    	rear == nullptr;
+			}
+		
+	       Node *temp = front;
+		   front = front->next;
+		   delete temp;	
+		
+		}
+		
+		int Peek()
+		{
+			return front->data;
+		}
+		
+		void display()
+		{
+			Node *temp = front;
+			while(temp != nullptr)
+			{
+				cout<<temp->data<<" ";
+				cout<<endl;
+				temp = temp->next;
+			}
+			
+		
+		}
+		
+};
+
+
+int main()
+{
+   Queue q;
+   q.enqueue(2);
+   q.enqueue(90);
+   q.enqueue(34);
+   
+   q.display();
+	return 0;
+}
