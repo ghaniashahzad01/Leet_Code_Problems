@@ -1,0 +1,140 @@
+#include<iostream>
+using namespace std;
+
+struct Node{
+	int data;
+	Node *prev;
+	Node *next;
+	
+	Node(int value)
+	{
+		data = value;
+		prev = next = nullptr;
+	}
+};
+
+class Dequeue{
+	private:
+		Node *front;
+		Node *rear;
+	public:
+		Dequeue()
+		{
+			front = rear = nullptr;
+		}
+		void pushFront(int value)
+		{
+			Node *newNode = new Node(value);
+			if(front==nullptr)
+			{
+				front = rear = newNode;
+			}
+			else
+			{
+			
+			newNode->next = front;
+			front->prev = newNode;
+			front = newNode;
+	      	}
+		}
+		
+		void pushBack(int value)
+		{
+			Node *newNode = new Node(value);
+			if(front==nullptr)
+			{
+				front = rear = newNode;
+			}
+			else{
+			
+				newNode->prev = rear;
+				rear->next = newNode;
+				rear = newNode;
+			}
+		}
+		
+		void PopFront()
+		{ 
+		   if(front==nullptr)
+			   return;
+			
+			Node *temp = front;
+			if(front == rear)
+			{
+				front = rear = nullptr;
+			}
+			else{
+				
+				front = front->next;
+				 
+				 front->prev = nullptr;
+			}
+			delete temp;
+		}	
+		void PopBack()
+		{ 
+		   if(front==nullptr)
+			   return;
+			   
+			Node *temp = rear;
+			if(front == rear)
+			{
+				front = rear = nullptr;
+			}
+			
+			else{
+			    rear = rear->prev;
+				 
+				rear->next = nullptr;
+			}
+			delete temp;
+		}
+		
+		int start()
+		{
+			if(front==nullptr)
+			   return -1;
+			else{
+				return front->data;
+			}
+		}
+		
+		int end()
+		{
+			if(front==nullptr)
+			   return -1;
+			else{
+				return rear->data;
+			}
+		}
+		void display(){
+		
+	    Node* temp = front;
+        while (temp != nullptr) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+int main()
+{
+	Dequeue q;
+    q.pushFront(23);
+    q.pushBack(56);
+    q.pushFront(12);
+    
+    q.display(); // Displays 12 23 56
+
+    q.PopFront();
+    q.display(); // Displays 23 56
+
+    q.PopBack();
+    q.display(); // Displays 23
+
+    q.PopBack();
+    q.display(); // Displays empty message
+	
+	return 0;
+}
