@@ -1,0 +1,69 @@
+#include<iostream>
+using namespace std;
+
+struct Node{
+	int data;
+	Node *next;
+	
+	Node(int value)
+	{
+		data = value;
+		next = nullptr;
+	}
+};
+
+class Stack{
+	private:
+		Node *top;
+		int size;
+	public:
+		Stack()
+		{
+			top = nullptr;
+			size = 0;
+		}
+		void push(int value)
+		{
+			Node *temp = new Node(value);
+			
+			if(temp == nullptr)
+			{
+				cout<<"Stack overflow"<<endl;
+			}
+			temp->next = top;
+			top = temp;
+			cout<<value<<" "<<endl;
+			size++;
+		}
+		
+		void pop()
+		{
+			Node *temp = top;
+			top = top->next;
+			delete temp;
+			size--;
+		}
+		
+		int peek()
+		{
+			return top->data;
+		}
+		
+		bool isEmpty()
+		{
+			return top == nullptr;
+		}
+		int isSize()
+		{
+			return size;
+		}
+};
+int main()
+{
+	Stack s;
+	s.push(2);
+	s.push(5);
+	s.push(6);
+	
+	return 0;
+}
