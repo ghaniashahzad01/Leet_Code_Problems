@@ -1,0 +1,144 @@
+#include <iostream>
+using namespace std;
+
+class Dequeue {
+private:
+    int* arr; // Pointer to hold the circular queue
+    int front; // Front pointer
+    int rear;  // Rear pointer
+    int size;  // Maximum size of the queue
+
+public:
+    // Constructor
+    Dequeue(int s) {
+        size = s;
+        arr = new int[s];
+        front = rear = -1; // Initialize pointers to -1
+    }
+
+    // Destructor to free allocated memory
+    ~Dequeue() {
+        delete[] arr;
+    }
+
+    // Check if the queue is empty
+    bool isEmpty() {
+        return front == -1;
+    }
+
+    // Check if the queue is full
+    bool isFull() {
+        return (rear + 1) % size == front;
+    }
+
+    // Add an element to the front of the queue
+    void PushFront(int value) {
+        if (isFull()) {
+            cout << "Queue is full, cannot push to front." << endl;
+            return;
+        }
+
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            front = (front - 1 + size) % size;
+        }
+        arr[front] = value;
+    }
+
+    // Add an element to the back of the queue
+    void PushBack(int value) {
+        if (isFull()) {
+            cout << "Queue is full, cannot push to back." << endl;
+            return;
+        }
+
+        if (isEmpty()) {
+            front = rear = 0;
+        } else {
+            rear = (rear + 1) % size;
+        }
+        arr[rear] = value;
+    }
+
+    // Remove an element from the front of the queue
+    void PopFront() {
+        if (isEmpty()) {
+            cout << "Queue is empty, cannot pop from front." << endl;
+            return;
+        }
+
+        if (front == rear) {
+            front = rear = -1; // Reset the queue if it becomes empty
+        } else {
+            front = (front + 1) % size;
+        }
+    }
+
+    // Remove an element from the back of the queue
+    void PopBack() {
+        if (isEmpty()) {
+            cout << "Queue is empty, cannot pop from back." << endl;
+            return;
+        }
+
+        if (front == rear) {
+            front = rear = -1; // Reset the queue if it becomes empty
+        } else {
+            rear = (rear - 1 + size) % size;
+        }
+    }
+
+    // Get the front element of the queue
+    int getStart() {
+        if (isEmpty()) {
+            cout << "Queue is empty, no front element." << endl;
+            return -1;
+        }
+        return arr[front];
+    }
+
+    // Get the rear element of the queue
+    int getEnd() {
+        if (isEmpty()) {
+            cout << "Queue is empty, no rear element." << endl;
+            return -1;
+        }
+        return arr[rear];
+    }
+
+    // Display the elements of the queue
+    void display() {
+        if (isEmpty()) {
+            cout << "Queue is empty." << endl;
+            return;
+        }
+
+        cout << "Queue elements: ";
+        int i = front;
+        while (true) {
+            cout << arr[i] << " ";
+            if (i == rear) break;
+            i = (i + 1) % size;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Dequeue q(3);
+
+    // Test PushFront and PushBack
+    q.PushFront(23);
+    q.PushBack(2);
+    q.PushFront(4);
+
+    // Display the queue
+    q.display();
+
+    // Test PopBack
+    q.PopBack();
+    q.display();
+
+    return 0;
+}
