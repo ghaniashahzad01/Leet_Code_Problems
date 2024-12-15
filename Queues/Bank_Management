@@ -1,0 +1,75 @@
+#include <iostream>
+#include <queue>
+#include <string>
+using namespace std;
+
+class BankQueue {
+private:
+    queue<string> customerQueue;
+
+public:
+    // Add a customer to the queue
+    void addCustomer(const string& name) {
+        customerQueue.push(name);
+        cout << name << " has joined the queue.\n";
+    }
+
+    // Process the next customer in line
+    void processCustomer() {
+        if (customerQueue.empty()) {
+            cout << "The queue is empty. No customers to process.\n";
+        } else {
+            cout << customerQueue.front() << " is being served.\n";
+            customerQueue.pop();
+        }
+    }
+
+    // Display the current queue
+    void displayQueue() {
+        if (customerQueue.empty()) {
+            cout << "The queue is empty.\n";
+            return;
+        }
+        cout << "Current Queue: ";
+        queue<string> tempQueue = customerQueue; // Copy queue to display
+        while (!tempQueue.empty()) {
+            cout << tempQueue.front() << " ";
+            tempQueue.pop();
+        }
+        cout << "\n";
+    }
+};
+
+int main() {
+    BankQueue bank;
+    int choice;
+    string name;
+
+    do {
+        cout << "\n=== Bank Queue Management ===\n";
+        cout << "1. Add Customer\n2. Process Customer\n3. Display Queue\n4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Enter customer name: ";
+            cin >> name;
+            bank.addCustomer(name);
+            break;
+        case 2:
+            bank.processCustomer();
+            break;
+        case 3:
+            bank.displayQueue();
+            break;
+        case 4:
+            cout << "Exiting the program.\n";
+            break;
+        default:
+            cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
