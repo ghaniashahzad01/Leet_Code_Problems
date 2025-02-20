@@ -9,7 +9,7 @@ public:
     // Pointer to traverse the list.
     ListNode* current = head;
 
-    // Traverse the list and remove duplicates.
+    // Traverse the list and remove ..
     while (current != nullptr && current->next != nullptr) {
         if (current->val == current->next->val) {
             // Skip the duplicate node.
